@@ -69,7 +69,7 @@ class Rental < Model
   protected
 
   def create_actions
-    %w[drivy insurance assistance driver].each do |actor|
+    %w[drivy insurance assistance driver owner].each do |actor|
       Action.new(who: actor, rental_id: id)
     end
   end

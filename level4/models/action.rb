@@ -6,7 +6,7 @@ class Action < Model
   def initialize(options)
     super options
 
-    @@all << self if amount.to_i > 0
+    @@all << self
   end
 
   def rental

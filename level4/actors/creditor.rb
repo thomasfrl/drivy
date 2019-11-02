@@ -5,6 +5,6 @@ class Creditor
   end
 
   def self.amount(rental)
-    rental.commisions["#{name.downcase}_fee"]
+    rental.commissions["#{name.downcase}_fee".to_sym]
   end
 end
