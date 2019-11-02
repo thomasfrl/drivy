@@ -1,7 +1,7 @@
 # action model
 class Action < NoDB
   @all = []
-  
+
   attr_accessor :who, :rental_id
 
   belongs_to 'rental'

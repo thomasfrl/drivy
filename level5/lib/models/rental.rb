@@ -48,14 +48,15 @@ class Rental < Model
   end
 
   def equipements
-    options.map &:equipement
+    options.map(&:equipement)
   end
 
   def equipement_prices
     {}.tap do |equipement_prices|
       equipements.each do |equipement|
         equipement_prices[equipement.creditor] ||= 0
-        equipement_prices[equipement.creditor] += equipement.price_per_day * duration
+        equipement_prices[equipement.creditor] +=
+          equipement.price_per_day * duration
       end
     end
   end
