@@ -13,7 +13,7 @@ class Model
   end
 
   def self.find(id)
-    all.find { |model| model.id == id }
+    all.find { |instance| instance.id == id }
   end
 
   def self.where(options)
@@ -24,19 +24,27 @@ class Model
     end
   end
 
-  def self.belongs_to(model_name, key = "#{model_name}_id")
+  def self.find_by(options)
+    where(options).first
+  end
+
+  def self.belongs_to(model_name, **options)
     define_method model_name do
-      Object.const_get(model_name.capitalize).find(send(key))
+      foreign_key = options[:foreign_key] || 'id'
+      key         = options[:key] || send("#{model_name}_id")
+
+      Object.const_get(model_name.capitalize)
+            .find_by(foreign_key.to_sym => key)
     end
   end
 
   def self.has_many(model_name, **options)
-    foreign_key = options[:foreign_key] || "#{model_name}_id"
-    key         = options[:key] || 'id'
-    conditions  = { foreign_key.to_sym => key }
-
     define_method model_name do
-      Object.const_get(model_name.singularize.capitalize).where(*conditions)
+      foreign_key = options[:foreign_key] || "#{self.class.name.downcase}_id"
+      key         = options[:key] || id
+
+      Object.const_get(model_name.singularize.capitalize)
+            .where(foreign_key.to_sym => key)
     end
   end
 end
