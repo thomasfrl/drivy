@@ -7,6 +7,8 @@ class Rental < Model
 
     @start_date = Date.parse @start_date
     @end_date   = Date.parse @end_date
+
+    create_actions
   end
 
   def duration
@@ -36,14 +38,17 @@ class Rental < Model
   end
 
   def commissions
-    total          = 0.3 * price
-    insurance_fee  = 0.5 * total
+    insurance_fee  = 0.5 * commission
     assistance_fee = 100 * duration
-    drivy_fee      = total - insurance_fee - assistance_fee
+    drivy_fee      = commission - insurance_fee - assistance_fee
 
     { insurance_fee: insurance_fee,
       assistance_fee: assistance_fee,
       drivy_fee: drivy_fee }
+  end
+
+  def commission
+    0.3 * price
   end
 
   def self.price_coefficient(day_number)
@@ -59,5 +64,13 @@ class Rental < Model
       '2': 0.9,
       '1': 1
     }
+  end
+
+  protected
+
+  def create_actions
+    %w[drivy insurance assistance driver].each do |actor|
+      Action.new(who: actor, rental_id: id)
+    end
   end
 end
