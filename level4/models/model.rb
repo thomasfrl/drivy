@@ -15,4 +15,12 @@ class Model
   def self.find(id)
     all.find { |model| model.id == id }
   end
+
+  def self.where(options)
+    all.select do |instance|
+      options.all? do |attr_name, attr_value|
+        instance.instance_variable_get("@#{attr_name}") == attr_value
+      end
+    end
+  end
 end

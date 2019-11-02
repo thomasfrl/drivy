@@ -31,6 +31,10 @@ class Rental < Model
     @car ||= Car.find(car_id)
   end
 
+  def actions
+    @actions ||= Action.where(rental_id: id)
+  end
+
   def commissions
     total          = 0.3 * price
     insurance_fee  = 0.5 * total
