@@ -31,6 +31,17 @@ class Rental < Model
     @car ||= Car.find(car_id)
   end
 
+  def commissions
+    total          = 0.3 * price
+    insurance_fee  = 0.5 * total
+    assistance_fee = 100 * duration
+    drivy_fee      = total - insurance_fee - assistance_fee
+
+    { insurance_fee: insurance_fee,
+      assistance_fee: assistance_fee,
+      drivy_fee: drivy_fee }
+  end
+
   def self.price_coefficient(day_number)
     price_coefficients.find do |limit_day, _|
       day_number >= limit_day.to_s.to_i

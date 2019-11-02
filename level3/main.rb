@@ -5,7 +5,7 @@ require 'date'
 Dir['./**/*.rb'].each { |f| require f }
 
 def main
-  FileCreator.new(Rental, 'id', 'price').process
+  FileCreator.new(Rental, 'id', 'price', 'commissions').process
 end
 
 main
