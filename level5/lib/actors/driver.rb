@@ -5,6 +5,6 @@ class Driver
   end
 
   def self.amount(rental)
-    rental.price
+    rental.price + rental.equipement_prices.values.sum
   end
 end

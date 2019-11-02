@@ -4,6 +4,7 @@ class Rental < Model
 
   belongs_to 'car'
   has_many 'actions'
+  has_many 'options'
 
   def initialize(options)
     super(options)
@@ -44,6 +45,19 @@ class Rental < Model
 
   def commission
     0.3 * price
+  end
+
+  def equipements
+    options.map &:equipement
+  end
+
+  def equipement_prices
+    {}.tap do |equipement_prices|
+      equipements.each do |equipement|
+        equipement_prices[equipement.creditor] ||= 0
+        equipement_prices[equipement.creditor] += equipement.price_per_day * duration
+      end
+    end
   end
 
   def self.price_coefficient(day_number)
