@@ -31,7 +31,7 @@ class Model
   def self.belongs_to(model_name, **options)
     define_method model_name do
       foreign_key = options[:foreign_key] || 'id'
-      key         = options[:key] || send("#{model_name}_id")
+      key         = send(options[:key] || "#{model_name}_id")
 
       Object.const_get(model_name.capitalize)
             .find_by(foreign_key.to_sym => key)
@@ -41,7 +41,7 @@ class Model
   def self.has_many(model_name, **options)
     define_method model_name do
       foreign_key = options[:foreign_key] || "#{self.class.name.downcase}_id"
-      key         = options[:key] || id
+      key         = send(options[:key] || :id)
 
       Object.const_get(model_name.singularize.capitalize)
             .where(foreign_key.to_sym => key)
