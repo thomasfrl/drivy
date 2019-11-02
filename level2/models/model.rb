@@ -1,3 +1,4 @@
+# model core
 class Model
   attr_reader :id
 
@@ -12,6 +13,6 @@ class Model
   end
 
   def self.find(id)
-    self.all.find { |model| model.id == id }
+    all.find { |model| model.id == id }
   end
 end
