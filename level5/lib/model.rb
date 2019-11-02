@@ -23,4 +23,20 @@ class Model
       end
     end
   end
+
+  def self.belongs_to(model_name, key = "#{model_name}_id")
+    define_method model_name do
+      Object.const_get(model_name.capitalize).find(send(key))
+    end
+  end
+
+  def self.has_many(model_name, **options)
+    foreign_key = options[:foreign_key] || "#{model_name}_id"
+    key         = options[:key] || 'id'
+    conditions  = { foreign_key.to_sym => key }
+
+    define_method model_name do
+      Object.const_get(model_name.singularize.capitalize).where(*conditions)
+    end
+  end
 end

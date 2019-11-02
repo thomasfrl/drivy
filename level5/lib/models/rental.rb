@@ -2,6 +2,9 @@
 class Rental < Model
   attr_accessor :car_id, :start_date, :end_date, :distance
 
+  belongs_to 'car'
+  has_many 'actions'
+
   def initialize(options)
     super(options)
 
@@ -27,14 +30,6 @@ class Rental < Model
     (1..duration).sum do |day_number|
       self.class.price_coefficient(day_number) * car.price_per_day
     end
-  end
-
-  def car
-    @car ||= Car.find(car_id)
-  end
-
-  def actions
-    @actions ||= Action.where(rental_id: id)
   end
 
   def commissions
