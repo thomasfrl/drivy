@@ -1,17 +1,10 @@
 # action model
-class Action < Model
+class Action < NoDB
+  @all = []
+  
   attr_accessor :who, :rental_id
-  @@all = []
 
-  def initialize(options)
-    super options
-
-    @@all << self
-  end
-
-  def rental
-    @rental ||= Rental.find(rental_id)
-  end
+  belongs_to 'rental'
 
   def amount
     actor_class.amount(rental)
@@ -23,10 +16,6 @@ class Action < Model
 
   def actor_class
     Object.const_get(who.capitalize)
-  end
-
-  def self.all
-    @@all
   end
 
   def to_json(*)
