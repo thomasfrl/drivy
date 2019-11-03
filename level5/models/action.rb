@@ -14,6 +14,8 @@ class Action < Model
     actor_class.type
   end
 
+  protected
+
   def actor_class
     Object.const_get(who.capitalize)
   end

@@ -10,6 +10,8 @@ class FileCreator
     end
   end
 
+  protected
+
   def parse(model_name, instances, attr_names)
     values = instances.map do |instance|
       attr_names.map do |attr_name|
