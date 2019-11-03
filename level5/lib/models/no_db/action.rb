@@ -17,10 +17,4 @@ class Action < NoDB
   def actor_class
     Object.const_get(who.capitalize)
   end
-
-  def to_json(*)
-    %i[who type amount].map do |attr|
-      [attr, send(attr)]
-    end.to_h.to_json
-  end
 end

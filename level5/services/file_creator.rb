@@ -1,22 +1,39 @@
 # file creator service
 class FileCreator
-  def initialize(model, *data_names)
-    @file_name  = 'data/output.json'
-    @model      = model
-    @data_names = data_names
+  def initialize(file_name = 'data/output.json')
+    @file_name = file_name
   end
 
-  def process
+  def process(**args)
     File.open(@file_name, 'w') do |f|
-      f.write({ @model.name.downcase.pluralize => compile_data }.to_json)
+      data = send_parse(self, args)
+      f.write(data.to_json)
     end
   end
 
-  def compile_data
-    @model.all.map do |instance|
-      @data_names.map do |data_name|
-        [data_name, instance.send(data_name)]
-      end.to_h
+  def parse(model_name, instances, attr_names)
+    values = instances.map do |instance|
+      attr_names.map do |attr_name|
+        next send_parse(instance, attr_name) if attr_name.class == Hash
+
+        { attr_name => instance.send(attr_name) }
+      end.reduce(&:merge)
     end
+
+    { model_name => values }
+  end
+
+  def send_parse(instance, options)
+    options.map do |model_name, attributes|
+      instances = get_instances(model_name, instance)
+
+      parse(model_name, instances, attributes)
+    end.reduce(&:merge)
+  end
+
+  def get_instances(model_name, instance)
+    return instance.send(model_name) unless instance == self
+
+    Object.const_get(model_name.to_s.singularize.capitalize).all
   end
 end

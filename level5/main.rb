@@ -9,7 +9,9 @@ Dir['./**/*.rb'].each { |f| require f }
 seed
 
 def main
-  FileCreator.new(Rental, 'id', 'options', 'actions').process
+  FileCreator.new.process(rentals: [:id,
+                                    :options,
+                                    { actions: %i[who type amount] }])
 end
 
 main
