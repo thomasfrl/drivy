@@ -32,7 +32,7 @@ class FileCreator
   end
 
   def get_instances(model_name, instance)
-    return instance.send(model_name) unless instance == self
+    return Array(instance.send(model_name)) unless instance == self
 
     Object.const_get(model_name.to_s.singularize.capitalize).all
   end
