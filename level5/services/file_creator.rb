@@ -6,8 +6,7 @@ class FileCreator
 
   def process(**args)
     File.open(@file_name, 'w') do |f|
-      data = send_parse(self, args)
-      f.write(data.to_json)
+      f.write(send_parse(self, args).to_json)
     end
   end
 
