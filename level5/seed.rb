@@ -5,5 +5,5 @@ def seed
                  creditor: 'drivy',
                  price_per_day: 1000)
 
-  DataBase.load
+  LoadDataBase.new.process
 end
