@@ -2,7 +2,6 @@ require 'active_support/inflector'
 require 'json'
 require 'date'
 
-require './lib/model'
 Dir['./**/*.rb'].each { |f| require f }
 
 seed
