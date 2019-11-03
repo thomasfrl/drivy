@@ -1,5 +1,6 @@
 # rental model
 class Rental < Model
+  @all = []
   attr_accessor :car_id, :start_date, :end_date, :distance
 
   belongs_to 'car'
@@ -9,14 +10,19 @@ class Rental < Model
   def initialize(options)
     super(options)
 
-    @start_date = Date.parse @start_date
-    @end_date   = Date.parse @end_date
-
     create_actions
   end
 
+  def parsed_start_date
+    Date.parse start_date
+  end
+
+  def parsed_end_date
+    Date.parse end_date
+  end
+
   def duration
-    (end_date - start_date).to_i + 1
+    (parsed_end_date - parsed_start_date).to_i + 1
   end
 
   def price

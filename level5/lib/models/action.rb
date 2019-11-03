@@ -1,5 +1,5 @@
 # action model
-class Action < NoDB
+class Action < Model
   @all = []
 
   attr_accessor :who, :rental_id

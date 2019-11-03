@@ -4,4 +4,6 @@ def seed
   Equipement.new(type: 'additional_insurance',
                  creditor: 'drivy',
                  price_per_day: 1000)
+
+  DataBase.load
 end

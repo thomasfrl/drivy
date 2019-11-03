@@ -3,7 +3,6 @@ require 'json'
 require 'date'
 
 require './lib/model'
-require './lib/models/no_db.rb'
 Dir['./**/*.rb'].each { |f| require f }
 
 seed

@@ -8,9 +8,12 @@ class DataBase
     File.read(direction)
   end
 
-  def self.load(model)
-    JSON.parse(file)[model.name.downcase.pluralize].map do |data|
-      model.new(data)
+  def self.load
+    JSON.parse(file).each do |model_name, data|
+      model = Object.const_get(model_name.to_s.singularize.capitalize)
+      data.each do |attributes|
+        model.new(attributes)
+      end
     end
   end
 end

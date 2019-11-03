@@ -1,15 +1,22 @@
 # model core
 class Model
   attr_reader :id
+  @all = []
 
   def initialize(options)
     options.each do |attr_name, attr_value|
       instance_variable_set("@#{attr_name}", attr_value)
     end
+
+    self.class.all += [self]
   end
 
   def self.all
-    @all ||= DataBase.load(self)
+    @all
+  end
+
+  def self.all=(value)
+    @all = value
   end
 
   def self.find(id)
