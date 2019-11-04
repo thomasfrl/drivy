@@ -1,3 +1,4 @@
 # assistance class
-class Assistance < Creditor
+class Assistance
+  extend HasMoneyTransfer::Creditor
 end

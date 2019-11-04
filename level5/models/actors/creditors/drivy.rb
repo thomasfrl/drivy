@@ -1,3 +1,4 @@
 # drivy class
-class Drivy < Creditor
+class Drivy
+  extend HasMoneyTransfer::Creditor
 end

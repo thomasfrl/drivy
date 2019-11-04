@@ -1,3 +1,4 @@
 # insurance class
-class Insurance < Creditor
+class Insurance
+  extend HasMoneyTransfer::Creditor
 end
