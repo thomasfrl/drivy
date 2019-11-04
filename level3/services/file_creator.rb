@@ -1,7 +1,7 @@
 # file creator service
 class FileCreator
   def initialize(model, *data_names)
-    @file_name  = 'data/output.json'
+    @file_name  = File.expand_path('../data/output.json', __dir__)
     @model      = model
     @data_names = data_names
   end

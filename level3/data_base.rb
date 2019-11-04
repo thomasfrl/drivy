@@ -1,7 +1,7 @@
 # data base
 class DataBase
   def self.direction
-    './data/input.json'
+    File.expand_path('data/input.json', __dir__)
   end
 
   def self.file
