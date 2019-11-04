@@ -1,5 +1,5 @@
 # driver class
-class Driver < Model
+class Driver
   def self.type
     'debit'
   end

@@ -1,12 +1,5 @@
-require File.expand_path('initialize.rb', __dir__)
+require File.expand_path('../initialize.rb', __dir__)
 
-initialize_app
+initialize_app(__dir__[-1])
 
-def main
-  FileCreator.new.process(rentals: [:id,
-                                    :options,
-                                    { actions: %i[who type amount] }])
-end
-
-seed
-main
+process

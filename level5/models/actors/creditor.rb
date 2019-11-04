@@ -1,5 +1,5 @@
 # creditor class
-class Creditor < Model
+class Creditor
   def self.type
     'credit'
   end
