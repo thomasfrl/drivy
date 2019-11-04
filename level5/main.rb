@@ -1,9 +1,11 @@
 require 'active_support/inflector'
 require 'json'
 require 'date'
-require 'byebug'
+require 'bundler/setup'
+Bundler.require
 
-Dir['./**/*.rb'].each { |f| require f unless f == './main.rb' }
+path = File.expand_path(__dir__)
+Dir["#{path}/**/*.rb"].each { |f| require f unless f =~ %r{\/main.rb$} }
 
 def main
   FileCreator.new.process(rentals: [:id,

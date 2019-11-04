@@ -1,6 +1,6 @@
 # load data base from json file
 class LoadDataBase
-  def initialize(file_name = './data/input.json')
+  def initialize(file_name = File.expand_path('../data/input.json', __dir__))
     @file_name = file_name
   end
 

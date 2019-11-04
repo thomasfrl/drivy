@@ -1,6 +1,6 @@
 # file creator service
 class FileCreator
-  def initialize(file_name = 'data/output.json')
+  def initialize(file_name = File.expand_path('../data/output.json', __dir__))
     @file_name = file_name
   end
 
