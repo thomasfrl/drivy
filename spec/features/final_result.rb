@@ -1,9 +1,9 @@
 # spec/features/final_result.rb
+require File.expand_path('../../initialize.rb', __dir__)
 
-(1..5).each do |level|
+[3].each do |level|
   RSpec.describe 'FinalResult', type: :request do
-    before do
-      require File.expand_path('../../initialize.rb', __dir__)
+    before(:all) do
       initialize_app(level)
       process
     end
