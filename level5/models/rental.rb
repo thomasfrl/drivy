@@ -36,11 +36,11 @@ class Rental < Model
   def duration_price
     (1..duration).sum do |day_number|
       self.class.price_coefficient(day_number) * car.price_per_day
-    end
+    end.to_i
   end
 
   def commissions
-    insurance_fee  = 0.5 * commission
+    insurance_fee  = (0.5 * commission).to_i
     assistance_fee = 100 * duration
     drivy_fee      = commission - insurance_fee - assistance_fee
 
@@ -50,7 +50,7 @@ class Rental < Model
   end
 
   def commission
-    0.3 * price
+    (0.3 * price).to_i
   end
 
   def equipements
