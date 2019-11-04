@@ -26,7 +26,7 @@ class Rental < Model
   def duration_price
     (1..duration).sum do |day_number|
       self.class.price_coefficient(day_number) * car.price_per_day
-    end
+    end.to_i
   end
 
   def car
@@ -38,7 +38,7 @@ class Rental < Model
   end
 
   def commissions
-    insurance_fee  = 0.5 * commission
+    insurance_fee  = (0.5 * commission).to_i
     assistance_fee = 100 * duration
     drivy_fee      = commission - insurance_fee - assistance_fee
 
@@ -48,7 +48,7 @@ class Rental < Model
   end
 
   def commission
-    0.3 * price
+    (0.3 * price).to_i
   end
 
   def self.price_coefficient(day_number)
@@ -69,7 +69,7 @@ class Rental < Model
   protected
 
   def create_actions
-    %w[drivy insurance assistance driver owner].each do |actor|
+    %w[driver owner insurance assistance drivy].each do |actor|
       Action.new(who: actor, rental_id: id)
     end
   end
