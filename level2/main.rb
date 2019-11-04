@@ -1,11 +1,5 @@
-require 'active_support/inflector'
-require 'json'
-require 'date'
+require File.expand_path('../initialize.rb', __dir__)
 
-Dir['./**/*.rb'].each { |f| require f }
+initialize_app(__dir__[-1])
 
-def main
-  FileCreator.new(Rental, 'id', 'price').process
-end
-
-main
+process
