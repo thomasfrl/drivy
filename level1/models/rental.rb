@@ -1,4 +1,5 @@
-class Rental < Model 
+# rental model
+class Rental < Model
   attr_accessor :car_id, :start_date, :end_date, :distance
 
   def initialize(options)
