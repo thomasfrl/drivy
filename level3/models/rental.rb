@@ -31,7 +31,7 @@ class Rental < Model
     @car ||= Car.find(car_id)
   end
 
-  def commissions
+  def commission
     total          = (0.3 * price).to_i
     insurance_fee  = (0.5 * total).to_i
     assistance_fee = 100 * duration
