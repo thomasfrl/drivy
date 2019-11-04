@@ -24,7 +24,7 @@ class Rental < Model
   def duration_price
     (1..duration).sum do |day_number|
       self.class.price_coefficient(day_number) * car.price_per_day
-    end
+    end.to_i
   end
 
   def car
